@@ -2,12 +2,12 @@ import {Block, BlockPermutation, Dimension, ItemStack, Player} from "@minecraft/
 
 export default class PlayerBreakBlock
 {
-    player: Player;
-    block: Block;
-    world: Dimension;
-    itemBeforeBreak: ItemStack;
-    itemAfterBreak: ItemStack;
-    brokenBlockPermutation: BlockPermutation;
+    private readonly player: Player;
+    private readonly block: Block;
+    private readonly world: Dimension;
+    private readonly itemBeforeBreak: ItemStack;
+    private readonly itemAfterBreak: ItemStack;
+    private readonly brokenBlockPermutation: BlockPermutation;
 
     constructor(player: Player, block: Block, world: Dimension, itemBefore: ItemStack, itemAfter: ItemStack, permutation: BlockPermutation)
     {

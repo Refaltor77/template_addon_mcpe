@@ -1,3 +1,4 @@
 export const EVENTS = {
-    playerBreakBlock: "PlayerBreakBlock"
+    playerBreakBlock: "PlayerBreakBlock",
+    playerJoinEvent: "PlayerJoinEvent",
 };
