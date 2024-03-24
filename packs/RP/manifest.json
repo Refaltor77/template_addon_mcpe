@@ -1,0 +1,28 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "pack.name",
+    "description": "pack.description",
+    "uuid": "8f2663f7-198c-4ec5-9e64-02055ff19d59",
+    "version": [1, 0, 0],
+    "min_engine_version": [1, 16, 0]
+  },
+  "modules": [
+    {
+      "type": "resources",
+      "uuid": "cb394e12-4279-4b4c-8a49-1c1d9668bede",
+      "version": [1, 0, 0]
+    }
+  ],
+  "dependencies": [
+    {
+      "uuid": "646405e4-1c50-4b3d-bdcf-a66809e2967f",
+      "version": [1, 0, 0]
+    }
+  ],
+  "metadata": {
+    "authors": ["refaltor77"],
+    "license": "MIT",
+    "url": "https://elysiomartins.fr"
+  }
+}
