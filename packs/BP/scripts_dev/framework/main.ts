@@ -1,11 +1,11 @@
-import {system} from "@minecraft/server";
+import {system, world} from "@minecraft/server";
 import {Handle} from "./events/Handle";
 import Loader from "../Loader";
 
 system.run(() => {
-    const loader = new Loader();
+    const loader = new Loader(world.getDimension('overworld'));
     const handlerEvents = new Handle();
 
     loader.onStart();
-    handlerEvents.handleAllEvents(loader.getEventManager());
+    handlerEvents.handleAllEvents(loader.getEventManager(), loader);
 });

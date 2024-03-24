@@ -1,28 +1,29 @@
-import {Block, BlockPermutation, Dimension, ItemStack, Player} from "@minecraft/server";
+import {Block, BlockPermutation, Dimension, ItemStack, Player, PlayerBreakBlockBeforeEvent} from "@minecraft/server";
 
 export default class PlayerBreakBlock
 {
     private readonly player: Player;
     private readonly block: Block;
     private readonly world: Dimension;
-    private readonly itemBeforeBreak: ItemStack;
-    private readonly itemAfterBreak: ItemStack;
-    private readonly brokenBlockPermutation: BlockPermutation;
+    private readonly item: ItemStack;
+    private readonly event: PlayerBreakBlockBeforeEvent;
 
-    constructor(player: Player, block: Block, world: Dimension, itemBefore: ItemStack, itemAfter: ItemStack, permutation: BlockPermutation)
+    constructor(player: Player, block: Block, world: Dimension, itemStack: ItemStack, event: PlayerBreakBlockBeforeEvent)
     {
         this.player = player;
         this.block = block;
         this.world = world;
-        this.itemBeforeBreak = itemBefore;
-        this.itemAfterBreak = itemAfter;
-        this.brokenBlockPermutation = permutation;
+        this.item = itemStack;
+        this.event = event;
     }
 
     public getPlayer(): Player {return this.player;}
     public getBlock(): Block {return this.block;}
     public getWorld(): Dimension {return this.world;}
-    public getItemBefore(): ItemStack {return this.itemBeforeBreak;}
-    public getItemAfter(): ItemStack {return this.itemAfterBreak;}
-    public getBlockPermutation(): BlockPermutation {return this.brokenBlockPermutation;}
+    public getItem(): ItemStack {return this.item};
+
+    // for cancel event
+    public cancel(value: boolean): void {
+        this.event.cancel = value;
+    }
 }
