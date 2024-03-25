@@ -1,19 +1,18 @@
 import Listener from "./Listener";
-import Loader from "../../Loader";
 
 export class HandlerListManager
 {
-    private events: { [eventName: string]: Function[] } = {};
+    private static events: { [eventName: string]: Function[] } = {};
 
-    registerEvent(eventName: string, listener: Listener) {
-        if (!this.events[eventName]) {
-            this.events[eventName] = [];
+    static registerEvent(eventName: string, listener: Listener) {
+        if (!HandlerListManager.events[eventName]) {
+            HandlerListManager.events[eventName] = [];
         }
         this.events[eventName].push(listener.onEvent.bind(listener));
     }
 
-    callEvent(eventName: string, ...args: any[]) {
-        const listeners = this.events[eventName];
+    static callEvent(eventName: string, ...args: any[]) {
+        const listeners = HandlerListManager.events[eventName];
         if (listeners) {
             listeners.forEach(listener => {
                 listener(...args);

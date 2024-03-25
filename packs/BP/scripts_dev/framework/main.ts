@@ -7,5 +7,5 @@ system.run(() => {
     const handlerEvents = new Handle();
 
     loader.onStart();
-    handlerEvents.handleAllEvents(loader.getEventManager(), loader);
+    handlerEvents.handleAllEvents(loader);
 });

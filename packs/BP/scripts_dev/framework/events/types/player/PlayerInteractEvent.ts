@@ -6,8 +6,10 @@ import {
     Player,
     Vector3
 } from "@minecraft/server";
+import {Event} from "../../Event";
+import {EVENTS} from "../../EventList";
 
-export default class PlayerInteractEvent
+export default class PlayerInteractEvent extends Event
 {
     private readonly player: Player;
     private readonly block: Block;
@@ -18,6 +20,7 @@ export default class PlayerInteractEvent
 
     constructor(player: Player, block: Block, itemStack: ItemStack, face: Direction, faceLocation: Vector3, event: ItemUseOnBeforeEvent)
     {
+        super();
         this.player = player;
         this.block = block;
         this.item = itemStack;
@@ -35,5 +38,9 @@ export default class PlayerInteractEvent
     // for cancel event
     public cancel(value: boolean): void {
         this.event.cancel = value;
+    }
+
+    getEventName(): string {
+        return EVENTS.playerInteractEvent;
     }
 }

@@ -1,4 +1,6 @@
 export const EVENTS = {
+    default: "default",
+
     blockBreakEvent: "BlockBreakEvent",
     blockPlaceEvent: "BlockPlaceEvent",
 
@@ -9,5 +11,8 @@ export const EVENTS = {
     playerChangeWorldEvent: "PlayerChangeWorldEvent",
     playerDamageEvent: "PlayerDamageEvent",
 
-    entityDeathEvent: "EntityDeathEvent"
+    entityDeathEvent: "EntityDeathEvent",
+    entityDamageEvent: "EntityDamageEvent",
+
+    projectileHitEntityEvent: "ProjectilehitEntityEvent",
 };

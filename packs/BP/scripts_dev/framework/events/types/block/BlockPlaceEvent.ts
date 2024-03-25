@@ -6,8 +6,10 @@ import {
     Player,
     Vector3
 } from "@minecraft/server";
+import {Event} from "../../Event";
+import {EVENTS} from "../../EventList";
 
-export default class BlockPlaceEvent
+export default class BlockPlaceEvent extends Event
 {
     private readonly player: Player;
     private readonly block: Block;
@@ -16,6 +18,7 @@ export default class BlockPlaceEvent
 
     constructor(player: Player, block: Block, world: Dimension)
     {
+        super();
         this.player = player;
         this.block = block;
     }
@@ -27,5 +30,9 @@ export default class BlockPlaceEvent
     // for cancel event
     public cancel(value: boolean): void {
         this.isCancel = value;
+    }
+
+    getEventName(): string {
+        return EVENTS.blockPlaceEvent;
     }
 }

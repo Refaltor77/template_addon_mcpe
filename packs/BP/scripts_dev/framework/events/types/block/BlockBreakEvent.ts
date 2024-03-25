@@ -1,6 +1,8 @@
 import {Block, Dimension, ItemStack, Player, PlayerBreakBlockBeforeEvent} from "@minecraft/server";
+import {Event} from "../../Event";
+import {EVENTS} from "../../EventList";
 
-export default class BlockBreakEvent
+export default class BlockBreakEvent extends Event
 {
     private readonly player: Player;
     private readonly block: Block;
@@ -10,6 +12,7 @@ export default class BlockBreakEvent
 
     constructor(player: Player, block: Block, world: Dimension, itemStack: ItemStack, event: PlayerBreakBlockBeforeEvent)
     {
+        super();
         this.player = player;
         this.block = block;
         this.world = world;
@@ -25,5 +28,9 @@ export default class BlockBreakEvent
     // for cancel event
     public cancel(value: boolean): void {
         this.event.cancel = value;
+    }
+
+    public getEventName(): string {
+        return EVENTS.blockBreakEvent;
     }
 }

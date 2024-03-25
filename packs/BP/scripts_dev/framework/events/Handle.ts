@@ -1,26 +1,23 @@
-import {Block, Dimension, Player, system, Vector3, world} from "@minecraft/server";
-import {HandlerListManager} from "./HandlerListManager";
-import {EVENTS} from "./EventList";
+import {Block, Dimension, Player, Vector3, world} from "@minecraft/server";
 import BlockBreakEvent from "./types/block/BlockBreakEvent";
 import PlayerJoinEvent from "./types/player/PlayerJoinEvent";
 import Loader from "../../Loader";
 import PlayerQuitEvent from "./types/player/PlayerQuitEvent";
 import PlayerInteractEvent from "./types/player/PlayerInteractEvent";
 import BlockPlaceEvent from "./types/block/BlockPlaceEvent";
-import {COMMANDS} from "../commands/CommandList";
 import EntityDeathEvent from "./types/entity/EntityDeathEvent";
 import {PlayerDeathEvent} from "./types/player/PlayerDeathEvent";
 import {PlayerChangeWorldEvent} from "./types/player/PlayerChangeWorldEvent";
 import {PlayerDamageEvent} from "./types/player/PlayerDamageEvent";
 import {EntityDamageEvent} from "./types/entity/EntityDamageEvent";
+import {ProjectileHitEntityEvent} from "./types/projectile/ProjectileHitEntityEvent";
 
 export class Handle
 {
-    public handleAllEvents(manager: HandlerListManager, loader: Loader): void
+    public handleAllEvents(loader: Loader): void
     {
         world.beforeEvents.playerBreakBlock.subscribe(event =>
         {
-            const eventName: string = EVENTS.blockBreakEvent;
             const eventObject: BlockBreakEvent = new BlockBreakEvent(
                 event.player,
                 event.block,
@@ -28,31 +25,29 @@ export class Handle
                 event.itemStack,
                 event
             );
-            manager.callEvent(eventName, eventObject, loader);
+
+            eventObject.call();
         });
 
         world.afterEvents.playerSpawn.subscribe(event =>
         {
-            const eventName: string = EVENTS.playerJoinEvent;
             const eventObject: PlayerJoinEvent = new PlayerJoinEvent(
                 event.player,
                 event.initialSpawn
             );
-            manager.callEvent(eventName, eventObject, loader);
+            eventObject.call();
         });
 
         world.beforeEvents.playerLeave.subscribe(event =>
         {
-            const eventName: string = EVENTS.playerQuitEvent;
             const eventObject: PlayerQuitEvent = new PlayerQuitEvent(
                 event.player
             );
-            manager.callEvent(eventName, eventObject, loader);
+            eventObject.call();
         });
 
         world.beforeEvents.itemUseOn.subscribe(event =>
         {
-            const eventName: string = EVENTS.playerInteractEvent;
             const eventObject: PlayerInteractEvent = new PlayerInteractEvent(
                 event.source,
                 event.block,
@@ -61,18 +56,17 @@ export class Handle
                 event.faceLocation,
                 event
             );
-            manager.callEvent(eventName, eventObject, loader);
+            eventObject.call();
         });
 
         world.afterEvents.playerPlaceBlock.subscribe(event =>
         {
-            const eventName: string = EVENTS.blockPlaceEvent;
             const eventObject: BlockPlaceEvent = new BlockPlaceEvent(
                 event.player,
                 event.block,
                 event.dimension
             );
-            manager.callEvent(eventName, eventObject, loader);
+            eventObject.call();
 
             // create canceller because Mojang has not implemented this method in BlockPlace
             if (eventObject.isCancel)
@@ -89,28 +83,25 @@ export class Handle
         });
 
         world.afterEvents.entityDie.subscribe(event => {
-            const eventNameEntity: string = EVENTS.entityDeathEvent;
             const eventObject: EntityDeathEvent = new EntityDeathEvent(
                 event.deadEntity,
                 event.damageSource
             );
-            manager.callEvent(eventNameEntity, eventObject, loader);
+            eventObject.call();
 
             const deadEntity = event.deadEntity;
             if (deadEntity instanceof Player)
             {
-                const eventNameEntity: string = EVENTS.playerDeathEvent;
-                const eventObject: PlayerDeathEvent = new PlayerDeathEvent(
+                const eventObjectPlayer: PlayerDeathEvent = new PlayerDeathEvent(
                     deadEntity,
                     event.damageSource
                 );
-                manager.callEvent(eventNameEntity, eventObject, loader);
+                eventObjectPlayer.call();
             }
         });
 
         world.afterEvents.playerDimensionChange.subscribe(event =>
         {
-            const eventNameEntity: string = EVENTS.playerChangeWorldEvent;
             const eventObject: PlayerChangeWorldEvent = new PlayerChangeWorldEvent(
                 event.player,
                 event.fromDimension,
@@ -118,29 +109,42 @@ export class Handle
                 event.fromLocation,
                 event.toLocation
             );
-            manager.callEvent(eventNameEntity, eventObject, loader);
+            eventObject.call();
         });
 
         world.afterEvents.entityHurt.subscribe(event =>
         {
             const entity = event.hurtEntity;
-            const eventNameEntity: string = EVENTS.playerDamageEvent;
             const eventObject: EntityDamageEvent = new EntityDamageEvent(
                 entity,
                 event.damageSource,
                 event.damage,
             );
-            manager.callEvent(eventNameEntity, eventObject, loader);
+            eventObject.call();
 
             if (entity instanceof Player)
             {
-                const eventNamePlayer: string = EVENTS.playerDamageEvent;
                 const eventObjectPlayer: PlayerDamageEvent = new PlayerDamageEvent(
                     entity,
                     event.damageSource,
                     event.damage,
                 );
-                manager.callEvent(eventNamePlayer, eventObjectPlayer, loader);
+                eventObjectPlayer.call();
+            }
+        });
+
+        world.afterEvents.projectileHitEntity.subscribe(event =>
+        {
+            const eventObject: ProjectileHitEntityEvent = new ProjectileHitEntityEvent(
+                event.dimension,
+                event.projectile,
+                event.hitVector,
+                event.getEntityHit(),
+                event.location,
+                event.source
+            );
+            if (eventObject.entityIsValid()) {
+                eventObject.call();
             }
         });
     }
