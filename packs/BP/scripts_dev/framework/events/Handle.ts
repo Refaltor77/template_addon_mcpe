@@ -17,6 +17,7 @@ import PlayerAddEffectEvent from "./types/player/PlayerAddEffectEvent";
 import EntityExplodeEvent from "./types/entity/EntityExplodeEvent";
 import {MinecraftBlockTypes} from "../helpers/Vanilla";
 import {BlockHelper} from "../helpers/BlockHelper";
+import EntitySpawnEvent from "./types/entity/EntitySpawnEvent";
 
 export class Handle
 {
@@ -211,6 +212,15 @@ export class Handle
             {
                 event.cancel = true;
             }
-        })
+        });
+
+        world.afterEvents.entitySpawn.subscribe(event =>
+        {
+            const eventObject: EntitySpawnEvent = new EntitySpawnEvent(
+                event.entity,
+                event.cause
+            );
+            eventObject.call();
+        });
     }
 }
