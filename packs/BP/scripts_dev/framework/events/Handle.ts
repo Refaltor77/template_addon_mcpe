@@ -12,6 +12,7 @@ import EntityDeathEvent from "./types/entity/EntityDeathEvent";
 import {PlayerDeathEvent} from "./types/player/PlayerDeathEvent";
 import {PlayerChangeWorldEvent} from "./types/player/PlayerChangeWorldEvent";
 import {PlayerDamageEvent} from "./types/player/PlayerDamageEvent";
+import {EntityDamageEvent} from "./types/entity/EntityDamageEvent";
 
 export class Handle
 {
@@ -123,16 +124,23 @@ export class Handle
         world.afterEvents.entityHurt.subscribe(event =>
         {
             const entity = event.hurtEntity;
+            const eventNameEntity: string = EVENTS.playerDamageEvent;
+            const eventObject: EntityDamageEvent = new EntityDamageEvent(
+                entity,
+                event.damageSource,
+                event.damage,
+            );
+            manager.callEvent(eventNameEntity, eventObject, loader);
 
             if (entity instanceof Player)
             {
-                const eventNameEntity: string = EVENTS.playerDamageEvent;
-                const eventObject: PlayerDamageEvent = new PlayerDamageEvent(
+                const eventNamePlayer: string = EVENTS.playerDamageEvent;
+                const eventObjectPlayer: PlayerDamageEvent = new PlayerDamageEvent(
                     entity,
                     event.damageSource,
                     event.damage,
                 );
-                manager.callEvent(eventNameEntity, eventObject, loader);
+                manager.callEvent(eventNamePlayer, eventObjectPlayer, loader);
             }
         });
     }
