@@ -11,6 +11,7 @@ import {COMMANDS} from "../commands/CommandList";
 import EntityDeathEvent from "./types/entity/EntityDeathEvent";
 import {PlayerDeathEvent} from "./types/player/PlayerDeathEvent";
 import {PlayerChangeWorldEvent} from "./types/player/PlayerChangeWorldEvent";
+import {PlayerDamageEvent} from "./types/player/PlayerDamageEvent";
 
 export class Handle
 {
@@ -117,6 +118,22 @@ export class Handle
                 event.toLocation
             );
             manager.callEvent(eventNameEntity, eventObject, loader);
+        });
+
+        world.afterEvents.entityHurt.subscribe(event =>
+        {
+            const entity = event.hurtEntity;
+
+            if (entity instanceof Player)
+            {
+                const eventNameEntity: string = EVENTS.playerDamageEvent;
+                const eventObject: PlayerDamageEvent = new PlayerDamageEvent(
+                    entity,
+                    event.damageSource,
+                    event.damage,
+                );
+                manager.callEvent(eventNameEntity, eventObject, loader);
+            }
         });
     }
 }
