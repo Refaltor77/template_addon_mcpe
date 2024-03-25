@@ -1,4 +1,4 @@
-import {Block, BlockPermutation, Dimension, ItemStack, Player, PlayerBreakBlockBeforeEvent} from "@minecraft/server";
+import {Block, Dimension, ItemStack, Player, PlayerBreakBlockBeforeEvent} from "@minecraft/server";
 
 export default class PlayerBreakBlock
 {

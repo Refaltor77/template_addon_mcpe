@@ -1,5 +1,6 @@
 export const EVENTS = {
     playerBreakBlock: "PlayerBreakBlock",
     playerJoinEvent: "PlayerJoinEvent",
-    playerQuitEvent: "PlayerQuitEvent"
+    playerQuitEvent: "PlayerQuitEvent",
+    playerInteractEvent: "PlayerInteractEvent"
 };

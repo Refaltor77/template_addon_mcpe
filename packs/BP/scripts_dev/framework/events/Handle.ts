@@ -5,6 +5,7 @@ import PlayerBreakBlock from "./types/PlayerBreakBlock";
 import PlayerJoinEvent from "./types/PlayerJoinEvent";
 import Loader from "../../Loader";
 import PlayerQuitEvent from "./types/PlayerQuitEvent";
+import PlayerInteractEvent from "./types/PlayerInteractEvent";
 
 export class Handle
 {
@@ -20,7 +21,6 @@ export class Handle
                 event.itemStack,
                 event
             );
-
             manager.callEvent(eventName, eventObject, loader);
         });
 
@@ -31,7 +31,6 @@ export class Handle
                 event.player,
                 event.initialSpawn
             );
-
             manager.callEvent(eventName, eventObject, loader);
         });
 
@@ -40,6 +39,20 @@ export class Handle
             const eventName: string = EVENTS.playerQuitEvent;
             const eventObject: PlayerQuitEvent = new PlayerQuitEvent(
                 event.player
+            );
+            manager.callEvent(eventName, eventObject, loader);
+        });
+
+        world.beforeEvents.itemUseOn.subscribe(event =>
+        {
+            const eventName: string = EVENTS.playerInteractEvent;
+            const eventObject: PlayerInteractEvent = new PlayerInteractEvent(
+                event.source,
+                event.block,
+                event.itemStack,
+                event.blockFace,
+                event.faceLocation,
+                event
             );
             manager.callEvent(eventName, eventObject, loader);
         });
