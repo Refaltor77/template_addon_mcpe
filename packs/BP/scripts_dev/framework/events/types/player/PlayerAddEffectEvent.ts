@@ -23,7 +23,7 @@ export default class PlayerAddEffectEvent extends Event
 
 
     getEventName(): string {
-        return EVENTS.entityAddEffectEvent;
+        return EVENTS.entityExplodeEvent;
     }
 
     isCancellable(): boolean {

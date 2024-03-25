@@ -1,4 +1,4 @@
-import {Block, Dimension, Player, Vector3, world} from "@minecraft/server";
+import {Block, Dimension, Entity, Player, Vector3, world} from "@minecraft/server";
 import BlockBreakEvent from "./types/block/BlockBreakEvent";
 import PlayerJoinEvent from "./types/player/PlayerJoinEvent";
 import Loader from "../../Loader";
@@ -14,6 +14,9 @@ import {ProjectileHitEntityEvent} from "./types/projectile/ProjectileHitEntityEv
 import ButtonPushEvent from "./types/block/ButtonPushEvent";
 import EntityAddEffectEvent from "./types/entity/EntityAddEffectEvent";
 import PlayerAddEffectEvent from "./types/player/PlayerAddEffectEvent";
+import EntityExplodeEvent from "./types/entity/EntityExplodeEvent";
+import {MinecraftBlockTypes} from "../helpers/Vanilla";
+import {BlockHelper} from "../helpers/BlockHelper";
 
 export class Handle
 {
@@ -193,5 +196,21 @@ export class Handle
                 }
             }
         });
+
+
+
+        world.beforeEvents.explosion.subscribe(event =>
+        {
+            const eventObject: EntityExplodeEvent = new EntityExplodeEvent(
+                event.source,
+                event.getImpactedBlocks()
+            );
+            eventObject.call();
+            event.setImpactedBlocks(eventObject.getAffectedBlocks());
+            if (eventObject.isCancel)
+            {
+                event.cancel = true;
+            }
+        })
     }
 }
