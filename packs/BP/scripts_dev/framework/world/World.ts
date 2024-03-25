@@ -1,4 +1,4 @@
-import {CommandResult, Dimension, Player} from "@minecraft/server";
+import {Block, CommandResult, Dimension, Player, Vector3} from "@minecraft/server";
 import {COMMANDS} from "../commands/CommandList";
 
 export class World
@@ -32,5 +32,10 @@ export class World
     public getWorld(): Dimension
     {
         return this.world;
+    }
+
+    public setBlock(blockName: string, position: Vector3): Promise<CommandResult>
+    {
+        return this.getWorld().runCommandAsync(COMMANDS.setblock + `${position.x} ${position.y} ${position.z} ${blockName}`);
     }
 }

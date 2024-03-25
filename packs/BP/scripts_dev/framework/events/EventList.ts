@@ -1,7 +1,11 @@
 export const EVENTS = {
     blockBreakEvent: "BlockBreakEvent",
     blockPlaceEvent: "BlockPlaceEvent",
+
     playerJoinEvent: "PlayerJoinEvent",
     playerQuitEvent: "PlayerQuitEvent",
-    playerInteractEvent: "PlayerInteractEvent"
+    playerInteractEvent: "PlayerInteractEvent",
+    playerDeathEvent: "PlayerDeathEvent",
+
+    entityDeathEvent: "EntityDeathEvent"
 };

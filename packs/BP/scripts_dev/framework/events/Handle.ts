@@ -1,4 +1,4 @@
-import {Block, Dimension, system, Vector3, world} from "@minecraft/server";
+import {Block, Dimension, Player, system, Vector3, world} from "@minecraft/server";
 import {HandlerListManager} from "./HandlerListManager";
 import {EVENTS} from "./EventList";
 import BlockBreakEvent from "./types/block/BlockBreakEvent";
@@ -8,6 +8,8 @@ import PlayerQuitEvent from "./types/player/PlayerQuitEvent";
 import PlayerInteractEvent from "./types/player/PlayerInteractEvent";
 import BlockPlaceEvent from "./types/block/BlockPlaceEvent";
 import {COMMANDS} from "../commands/CommandList";
+import EntityDeathEvent from "./types/entity/EntityDeathEvent";
+import {PlayerDeathEvent} from "./types/player/PlayerDeathEvent";
 
 export class Handle
 {
@@ -80,6 +82,26 @@ export class Handle
                     const location: Vector3 = block.location;
                     world.runCommand(`setblock ${location.x.toString()} ${location.y.toString()} ${location.z.toString()} air [] replace`);
                 }
+            }
+        });
+
+        world.afterEvents.entityDie.subscribe(event => {
+            const eventNameEntity: string = EVENTS.entityDeathEvent;
+            const eventObject: EntityDeathEvent = new EntityDeathEvent(
+                event.deadEntity,
+                event.damageSource
+            );
+            manager.callEvent(eventNameEntity, eventObject, loader);
+
+            const deadEntity = event.deadEntity;
+            if (deadEntity instanceof Player)
+            {
+                const eventNameEntity: string = EVENTS.playerDeathEvent;
+                const eventObject: PlayerDeathEvent = new PlayerDeathEvent(
+                    deadEntity,
+                    event.damageSource
+                );
+                manager.callEvent(eventNameEntity, eventObject, loader);
             }
         });
     }
