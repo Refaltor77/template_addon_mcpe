@@ -13,6 +13,7 @@ import {EntityDamageEvent} from "./types/entity/EntityDamageEvent";
 import {ProjectileHitEntityEvent} from "./types/projectile/ProjectileHitEntityEvent";
 import ButtonPushEvent from "./types/block/ButtonPushEvent";
 import EntityAddEffectEvent from "./types/entity/EntityAddEffectEvent";
+import PlayerAddEffectEvent from "./types/player/PlayerAddEffectEvent";
 
 export class Handle
 {
@@ -173,6 +174,23 @@ export class Handle
                 eventObject.getEntity().removeEffect(
                     eventObject.getEffect().displayName.toLowerCase()
                 );
+            }
+            else
+            {
+                if (event.entity instanceof Player)
+                {
+                    const eventObjectPlayer: PlayerAddEffectEvent = new PlayerAddEffectEvent(
+                        event.entity,
+                        event.effect
+                    );
+                    eventObjectPlayer.call();
+                    if (eventObjectPlayer.isCancel)
+                    {
+                        eventObjectPlayer.getPlayer().removeEffect(
+                            eventObjectPlayer.getEffect().displayName.toLowerCase()
+                        );
+                    }
+                }
             }
         });
     }
