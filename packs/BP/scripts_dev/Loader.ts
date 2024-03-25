@@ -4,6 +4,7 @@ import {onBreak} from "./events/onBreak";
 import {onJoin} from "./events/onJoin";
 import {onPlace} from "./events/onPlace";
 import {HandlerListManager} from "./framework/events/HandlerListManager";
+import {onButtonPush} from "./events/onButtonPush";
 
 export default class Loader extends Init
 {
@@ -13,5 +14,6 @@ export default class Loader extends Init
         this.registerEvent(EVENTS.blockBreakEvent, new onBreak());
         this.registerEvent(EVENTS.blockPlaceEvent, new onPlace());
         this.registerEvent(EVENTS.playerJoinEvent, new onJoin());
+        this.registerEvent(EVENTS.buttonPushEvent, new onButtonPush());
     }
 }

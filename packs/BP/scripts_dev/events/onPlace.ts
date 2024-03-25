@@ -7,7 +7,5 @@ export class onPlace extends Listener
     onEvent(event: BlockPlaceEvent, loader: Loader)
     {
         const player = event.getPlayer();
-        event.cancel(true);
-        player.sendMessage("no place :)");
     }
 }

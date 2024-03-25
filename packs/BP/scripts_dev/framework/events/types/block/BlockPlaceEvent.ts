@@ -35,4 +35,8 @@ export default class BlockPlaceEvent extends Event
     getEventName(): string {
         return EVENTS.blockPlaceEvent;
     }
+
+    public isCancellable(): boolean {
+        return true;
+    }
 }

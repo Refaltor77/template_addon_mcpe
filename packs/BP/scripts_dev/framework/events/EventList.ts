@@ -14,6 +14,7 @@ export const EVENTS = {
 
     entityDeathEvent: "EntityDeathEvent",
     entityDamageEvent: "EntityDamageEvent",
+    entityAddEffectEvent: "EntityAddEffectEvent",
 
     projectileHitEntityEvent: "ProjectilehitEntityEvent",
 };

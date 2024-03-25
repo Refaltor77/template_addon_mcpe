@@ -12,6 +12,7 @@ import {PlayerDamageEvent} from "./types/player/PlayerDamageEvent";
 import {EntityDamageEvent} from "./types/entity/EntityDamageEvent";
 import {ProjectileHitEntityEvent} from "./types/projectile/ProjectileHitEntityEvent";
 import ButtonPushEvent from "./types/block/ButtonPushEvent";
+import EntityAddEffectEvent from "./types/entity/EntityAddEffectEvent";
 
 export class Handle
 {
@@ -157,6 +158,22 @@ export class Handle
                 event.dimension
             );
             eventObject.call();
+        });
+
+
+        world.afterEvents.effectAdd.subscribe(event =>
+        {
+            const eventObject: EntityAddEffectEvent = new EntityAddEffectEvent(
+                event.entity,
+                event.effect
+            );
+            eventObject.call();
+            if (eventObject.isCancel)
+            {
+                eventObject.getEntity().removeEffect(
+                    eventObject.getEffect().displayName.toLowerCase()
+                );
+            }
         });
     }
 }

@@ -33,4 +33,8 @@ export default class BlockBreakEvent extends Event
     public getEventName(): string {
         return EVENTS.blockBreakEvent;
     }
+
+    public isCancellable(): boolean {
+        return true;
+    }
 }

@@ -10,7 +10,6 @@ export default class ButtonPushEvent extends Event
     private readonly source: Entity;
     private readonly block: Block;
     private readonly world: Dimension;
-    public isCancel: boolean = false;
 
     constructor(source: Entity, block: Block, world: Dimension)
     {
@@ -22,11 +21,6 @@ export default class ButtonPushEvent extends Event
     public getEntity(): Entity {return this.source;}
     public getBlock(): Block {return this.block;}
     public getWorld(): Dimension {return this.world;}
-
-    // for cancel event
-    public cancel(value: boolean): void {
-        this.isCancel = value;
-    }
 
     getEventName(): string {
         return EVENTS.buttonPushEvent;
