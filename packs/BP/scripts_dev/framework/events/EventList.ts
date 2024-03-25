@@ -6,6 +6,7 @@ export const EVENTS = {
     playerQuitEvent: "PlayerQuitEvent",
     playerInteractEvent: "PlayerInteractEvent",
     playerDeathEvent: "PlayerDeathEvent",
+    playerChangeWorldEvent: "PlayerChangeWorldEvent",
 
     entityDeathEvent: "EntityDeathEvent"
 };

@@ -10,6 +10,7 @@ import BlockPlaceEvent from "./types/block/BlockPlaceEvent";
 import {COMMANDS} from "../commands/CommandList";
 import EntityDeathEvent from "./types/entity/EntityDeathEvent";
 import {PlayerDeathEvent} from "./types/player/PlayerDeathEvent";
+import {PlayerChangeWorldEvent} from "./types/player/PlayerChangeWorldEvent";
 
 export class Handle
 {
@@ -103,6 +104,19 @@ export class Handle
                 );
                 manager.callEvent(eventNameEntity, eventObject, loader);
             }
+        });
+
+        world.afterEvents.playerDimensionChange.subscribe(event =>
+        {
+            const eventNameEntity: string = EVENTS.playerChangeWorldEvent;
+            const eventObject: PlayerChangeWorldEvent = new PlayerChangeWorldEvent(
+                event.player,
+                event.fromDimension,
+                event.toDimension,
+                event.fromLocation,
+                event.toLocation
+            );
+            manager.callEvent(eventNameEntity, eventObject, loader);
         });
     }
 }

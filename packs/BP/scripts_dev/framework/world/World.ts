@@ -14,7 +14,7 @@ export class World
     {
         let messageSendCount = 0;
 
-        this.getWorld().getEntities({type: "minecraft:player"}).forEach(player =>
+        this.getDimension().getEntities({type: "minecraft:player"}).forEach(player =>
         {
             if (player instanceof Player)
             {
@@ -29,13 +29,13 @@ export class World
        return messageSendCount;
     }
 
-    public getWorld(): Dimension
+    public getDimension(): Dimension
     {
         return this.world;
     }
 
     public setBlock(blockName: string, position: Vector3): Promise<CommandResult>
     {
-        return this.getWorld().runCommandAsync(COMMANDS.setblock + `${position.x} ${position.y} ${position.z} ${blockName}`);
+        return this.getDimension().runCommandAsync(COMMANDS.setblock + `${position.x} ${position.y} ${position.z} ${blockName}`);
     }
 }
