@@ -3,6 +3,7 @@ export const EVENTS = {
 
     blockBreakEvent: "BlockBreakEvent",
     blockPlaceEvent: "BlockPlaceEvent",
+    buttonPushEvent: "BlockButtonPushEvent",
 
     playerJoinEvent: "PlayerJoinEvent",
     playerQuitEvent: "PlayerQuitEvent",

@@ -11,6 +11,7 @@ import {PlayerChangeWorldEvent} from "./types/player/PlayerChangeWorldEvent";
 import {PlayerDamageEvent} from "./types/player/PlayerDamageEvent";
 import {EntityDamageEvent} from "./types/entity/EntityDamageEvent";
 import {ProjectileHitEntityEvent} from "./types/projectile/ProjectileHitEntityEvent";
+import ButtonPushEvent from "./types/block/ButtonPushEvent";
 
 export class Handle
 {
@@ -146,6 +147,16 @@ export class Handle
             if (eventObject.entityIsValid()) {
                 eventObject.call();
             }
+        });
+
+
+        world.afterEvents.buttonPush.subscribe(event => {
+            const eventObject: ButtonPushEvent = new ButtonPushEvent(
+                event.source,
+                event.block,
+                event.dimension
+            );
+            eventObject.call();
         });
     }
 }
