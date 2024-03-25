@@ -1,5 +1,5 @@
 import Listener from "../framework/events/Listener";
-import PlayerJoinEvent from "../framework/events/types/PlayerJoinEvent";
+import PlayerJoinEvent from "../framework/events/types/player/PlayerJoinEvent";
 import Loader from "../Loader";
 
 export class onJoin extends Listener

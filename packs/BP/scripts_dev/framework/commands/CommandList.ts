@@ -1,3 +1,4 @@
 export const COMMANDS = {
-    say: "say "
+    say: "say ",
+    execute: "execute "
 };

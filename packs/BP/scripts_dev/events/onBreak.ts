@@ -1,10 +1,10 @@
 import Listener from "../framework/events/Listener";
-import PlayerBreakBlock from "../framework/events/types/PlayerBreakBlock";
+import BlockBreakEvent from "../framework/events/types/block/BlockBreakEvent";
 import Loader from "../Loader";
 
 export class onBreak extends Listener
 {
-    onEvent(event: PlayerBreakBlock, loader: Loader)
+    onEvent(event: BlockBreakEvent, loader: Loader)
     {
         const player = event.getPlayer();
         player.sendMessage("Hello EasyAddon ! EVENT: PlayerBreakBlock");

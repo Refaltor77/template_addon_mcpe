@@ -1,11 +1,13 @@
-import {world} from "@minecraft/server";
+import {Block, Dimension, system, Vector3, world} from "@minecraft/server";
 import {HandlerListManager} from "./HandlerListManager";
 import {EVENTS} from "./EventList";
-import PlayerBreakBlock from "./types/PlayerBreakBlock";
-import PlayerJoinEvent from "./types/PlayerJoinEvent";
+import BlockBreakEvent from "./types/block/BlockBreakEvent";
+import PlayerJoinEvent from "./types/player/PlayerJoinEvent";
 import Loader from "../../Loader";
-import PlayerQuitEvent from "./types/PlayerQuitEvent";
-import PlayerInteractEvent from "./types/PlayerInteractEvent";
+import PlayerQuitEvent from "./types/player/PlayerQuitEvent";
+import PlayerInteractEvent from "./types/player/PlayerInteractEvent";
+import BlockPlaceEvent from "./types/block/BlockPlaceEvent";
+import {COMMANDS} from "../commands/CommandList";
 
 export class Handle
 {
@@ -13,8 +15,8 @@ export class Handle
     {
         world.beforeEvents.playerBreakBlock.subscribe(event =>
         {
-            const eventName: string = EVENTS.playerBreakBlock;
-            const eventObject: PlayerBreakBlock = new PlayerBreakBlock(
+            const eventName: string = EVENTS.blockBreakEvent;
+            const eventObject: BlockBreakEvent = new BlockBreakEvent(
                 event.player,
                 event.block,
                 event.dimension,
@@ -55,6 +57,30 @@ export class Handle
                 event
             );
             manager.callEvent(eventName, eventObject, loader);
+        });
+
+        world.afterEvents.playerPlaceBlock.subscribe(event =>
+        {
+            const eventName: string = EVENTS.blockPlaceEvent;
+            const eventObject: BlockPlaceEvent = new BlockPlaceEvent(
+                event.player,
+                event.block,
+                event.dimension
+            );
+            manager.callEvent(eventName, eventObject, loader);
+
+            // create canceller because Mojang has not implemented this method in BlockPlace
+            if (eventObject.isCancel)
+            {
+                const block: Block = event.block;
+                const world: Dimension = event.dimension;
+                const blockTarget: Block = world.getBlock(block.location);
+                if (blockTarget.isValid() && !blockTarget.isAir)
+                {
+                    const location: Vector3 = block.location;
+                    world.runCommand(`setblock ${location.x.toString()} ${location.y.toString()} ${location.z.toString()} air [] replace`);
+                }
+            }
         });
     }
 }

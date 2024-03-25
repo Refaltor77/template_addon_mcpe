@@ -1,6 +1,6 @@
 import {Block, Dimension, ItemStack, Player, PlayerBreakBlockBeforeEvent} from "@minecraft/server";
 
-export default class PlayerBreakBlock
+export default class BlockBreakEvent
 {
     private readonly player: Player;
     private readonly block: Block;
