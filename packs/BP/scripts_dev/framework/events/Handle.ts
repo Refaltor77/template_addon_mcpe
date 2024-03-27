@@ -36,6 +36,7 @@ import PlayerAddEffectEvent from "./types/player/PlayerAddEffectEvent";
 import EntityExplodeEvent from "./types/entity/EntityExplodeEvent";
 import EntitySpawnEvent from "./types/entity/EntitySpawnEvent";
 import {PPlayer} from "../player/PPlayer";
+import EntityHealthChangeEvent from "./types/entity/EntityHealthChangeEvent";
 
 export class Handle
 {
@@ -237,6 +238,17 @@ export class Handle
             const eventObject: EntitySpawnEvent = new EntitySpawnEvent(
                 event.entity,
                 event.cause
+            );
+            eventObject.call();
+        });
+
+
+        world.afterEvents.entityHealthChanged.subscribe(event =>
+        {
+            const eventObject = new EntityHealthChangeEvent(
+                event.entity,
+                event.newValue,
+                event.oldValue
             );
             eventObject.call();
         });

@@ -37,6 +37,7 @@ export const EVENTS = {
     entityAddEffectEvent: "EntityAddEffectEvent",
     entityExplodeEvent: "EntityExplodeEvent",
     entitySpawnEvent: "EntitySpawnEvent",
+    entityHealthChangeEvent: "EntityHealthChangeEvent",
 
     projectileHitEntityEvent: "ProjectilehitEntityEvent",
 };
