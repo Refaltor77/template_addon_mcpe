@@ -20,20 +20,21 @@
 import {Entity, EntityDamageSource, Player} from "@minecraft/server";
 import {Event} from "../../Event";
 import {EVENTS} from "../../EventList";
+import {PPlayer} from "../../../player/PPlayer";
 
 export class PlayerDeathEvent extends Event
 {
-    private readonly player: Player;
+    private readonly player: PPlayer;
     private readonly cause: EntityDamageSource;
 
-    constructor(player: Player, damage: EntityDamageSource)
+    constructor(player: PPlayer, damage: EntityDamageSource)
     {
         super();
         this.player = player;
         this.cause = damage;
     }
 
-    public getPlayer(): Entity {return this.player;}
+    public getPlayer(): PPlayer {return this.player;}
     public getCause(): EntityDamageSource {return this.cause;}
 
     getEventName(): string {

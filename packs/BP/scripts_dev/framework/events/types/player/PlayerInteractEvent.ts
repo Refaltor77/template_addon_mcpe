@@ -27,17 +27,18 @@ import {
 } from "@minecraft/server";
 import {Event} from "../../Event";
 import {EVENTS} from "../../EventList";
+import {PPlayer} from "../../../player/PPlayer";
 
 export default class PlayerInteractEvent extends Event
 {
-    private readonly player: Player;
+    private readonly player: PPlayer;
     private readonly block: Block;
     private readonly face: Direction;
     private readonly item: ItemStack;
     private readonly faceLocation: Vector3;
     private readonly event: ItemUseOnBeforeEvent;
 
-    constructor(player: Player, block: Block, itemStack: ItemStack, face: Direction, faceLocation: Vector3, event: ItemUseOnBeforeEvent)
+    constructor(player: PPlayer, block: Block, itemStack: ItemStack, face: Direction, faceLocation: Vector3, event: ItemUseOnBeforeEvent)
     {
         super();
         this.player = player;
@@ -48,7 +49,7 @@ export default class PlayerInteractEvent extends Event
         this.faceLocation = faceLocation;
     }
 
-    public getPlayer(): Player {return this.player;}
+    public getPlayer(): PPlayer {return this.player;}
     public getBlock(): Block {return this.block;}
     public getItem(): ItemStack {return this.item};
     public getFace(): Direction {return this.face;}

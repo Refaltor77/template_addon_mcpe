@@ -27,22 +27,23 @@ import {
 } from "@minecraft/server";
 import {Event} from "../../Event";
 import {EVENTS} from "../../EventList";
+import {PPlayer} from "../../../player/PPlayer";
 
 export default class BlockPlaceEvent extends Event
 {
-    private readonly player: Player;
+    private readonly player: PPlayer;
     private readonly block: Block;
     private readonly world: Dimension;
     public isCancel: boolean = false;
 
-    constructor(player: Player, block: Block, world: Dimension)
+    constructor(player: PPlayer, block: Block, world: Dimension)
     {
         super();
         this.player = player;
         this.block = block;
     }
 
-    public getPlayer(): Player {return this.player;}
+    public getPlayer(): PPlayer {return this.player;}
     public getBlock(): Block {return this.block;}
     public getWorld(): Dimension {return this.world;}
 

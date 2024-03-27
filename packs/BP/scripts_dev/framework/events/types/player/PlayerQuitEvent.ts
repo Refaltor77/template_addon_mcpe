@@ -20,18 +20,19 @@
 import {Player} from "@minecraft/server";
 import {Event} from "../../Event";
 import {EVENTS} from "../../EventList";
+import {PPlayer} from "../../../player/PPlayer";
 
 export default class PlayerQuitEvent extends Event
 {
-    private readonly player: Player;
+    private readonly player: PPlayer;
 
-    constructor(player: Player)
+    constructor(player: PPlayer)
     {
         super();
         this.player = player;
     }
 
-    public getPlayer(): Player {return this.player;}
+    public getPlayer(): PPlayer {return this.player;}
 
     getEventName(): string {
         return EVENTS.playerQuitEvent;

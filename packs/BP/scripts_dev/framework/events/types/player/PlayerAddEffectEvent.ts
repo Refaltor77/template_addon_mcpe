@@ -23,20 +23,21 @@ import {
 } from "@minecraft/server";
 import {Event} from "../../Event";
 import {EVENTS} from "../../EventList";
+import {PPlayer} from "../../../player/PPlayer";
 
 export default class PlayerAddEffectEvent extends Event
 {
-    private readonly entity: Player;
+    private readonly entity: PPlayer;
     private readonly effect: Effect;
 
-    constructor(entity: Player, effect: Effect)
+    constructor(entity: PPlayer, effect: Effect)
     {
         super();
         this.entity = entity;
         this.effect = effect;
     }
 
-    public getPlayer(): Player {return this.entity;}
+    public getPlayer(): PPlayer {return this.entity;}
     public getEffect(): Effect {return this.effect;}
 
 

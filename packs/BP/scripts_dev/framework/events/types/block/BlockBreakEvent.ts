@@ -20,16 +20,17 @@
 import {Block, Dimension, ItemStack, Player, PlayerBreakBlockBeforeEvent} from "@minecraft/server";
 import {Event} from "../../Event";
 import {EVENTS} from "../../EventList";
+import {PPlayer} from "../../../player/PPlayer";
 
 export default class BlockBreakEvent extends Event
 {
-    private readonly player: Player;
+    private readonly player: PPlayer;
     private readonly block: Block;
     private readonly world: Dimension;
     private readonly item: ItemStack;
     private readonly event: PlayerBreakBlockBeforeEvent;
 
-    constructor(player: Player, block: Block, world: Dimension, itemStack: ItemStack, event: PlayerBreakBlockBeforeEvent)
+    constructor(player: PPlayer, block: Block, world: Dimension, itemStack: ItemStack, event: PlayerBreakBlockBeforeEvent)
     {
         super();
         this.player = player;
@@ -39,7 +40,7 @@ export default class BlockBreakEvent extends Event
         this.event = event;
     }
 
-    public getPlayer(): Player {return this.player;}
+    public getPlayer(): PPlayer {return this.player;}
     public getBlock(): Block {return this.block;}
     public getWorld(): Dimension {return this.world;}
     public getItem(): ItemStack {return this.item};

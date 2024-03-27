@@ -20,20 +20,21 @@
 import {Player} from "@minecraft/server";
 import {Event} from "../../Event";
 import {EVENTS} from "../../EventList";
+import {PPlayer} from "../../../player/PPlayer";
 
 export default class PlayerJoinEvent extends Event
 {
-    private readonly player: Player;
+    private readonly player: PPlayer;
     private readonly initialSpawn: boolean;
 
-    constructor(player: Player, initialSpawn: boolean)
+    constructor(player: PPlayer, initialSpawn: boolean)
     {
         super();
         this.player = player;
         this.initialSpawn = initialSpawn;
     }
 
-    public getPlayer(): Player {return this.player;}
+    public getPlayer(): PPlayer {return this.player;}
     public hasPlayedBefore(): boolean {return this.initialSpawn;}
 
     getEventName(): string {

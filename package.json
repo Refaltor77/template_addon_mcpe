@@ -4,12 +4,15 @@
   "description": "Template addon for Minecraft bedrock edition, by refaltor77.",
   "main": "index.js",
   "scripts": {
-    "build": "tsc && regolith run"
+    "build": "tsc && regolith run",
+    "dev": "tsc && regolith watch"
   },
   "author": "refaltor77",
   "license": "ISC",
   "dependencies": {
     "@minecraft/server": "^1.9.0",
-    "@minecraft/server-ui": "^1.1.0"
+    "@minecraft/server-ui": "^1.1.0",
+    "@react-facet/core": "^0.5.4",
+    "@react-facet/dom-fiber": "^0.5.4"
   }
 }

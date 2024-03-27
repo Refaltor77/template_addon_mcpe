@@ -17,7 +17,7 @@
  *
  */
 
-import {Block, Dimension, Entity, Player, Vector3, world} from "@minecraft/server";
+import {Block, Dimension, Player, Vector3, world} from "@minecraft/server";
 import BlockBreakEvent from "./types/block/BlockBreakEvent";
 import PlayerJoinEvent from "./types/player/PlayerJoinEvent";
 import Loader from "../../Loader";
@@ -34,9 +34,8 @@ import ButtonPushEvent from "./types/block/ButtonPushEvent";
 import EntityAddEffectEvent from "./types/entity/EntityAddEffectEvent";
 import PlayerAddEffectEvent from "./types/player/PlayerAddEffectEvent";
 import EntityExplodeEvent from "./types/entity/EntityExplodeEvent";
-import {MinecraftBlockTypes} from "../helpers/Vanilla";
-import {BlockHelper} from "../helpers/BlockHelper";
 import EntitySpawnEvent from "./types/entity/EntitySpawnEvent";
+import {PPlayer} from "../player/PPlayer";
 
 export class Handle
 {
@@ -45,7 +44,7 @@ export class Handle
         world.beforeEvents.playerBreakBlock.subscribe(event =>
         {
             const eventObject: BlockBreakEvent = new BlockBreakEvent(
-                event.player,
+                new PPlayer(event.player),
                 event.block,
                 event.dimension,
                 event.itemStack,
@@ -58,7 +57,7 @@ export class Handle
         world.afterEvents.playerSpawn.subscribe(event =>
         {
             const eventObject: PlayerJoinEvent = new PlayerJoinEvent(
-                event.player,
+                new PPlayer(event.player),
                 event.initialSpawn
             );
             eventObject.call();
@@ -67,7 +66,7 @@ export class Handle
         world.beforeEvents.playerLeave.subscribe(event =>
         {
             const eventObject: PlayerQuitEvent = new PlayerQuitEvent(
-                event.player
+                new PPlayer(event.player),
             );
             eventObject.call();
         });
@@ -75,7 +74,7 @@ export class Handle
         world.beforeEvents.itemUseOn.subscribe(event =>
         {
             const eventObject: PlayerInteractEvent = new PlayerInteractEvent(
-                event.source,
+                new PPlayer(event.source),
                 event.block,
                 event.itemStack,
                 event.blockFace,
@@ -88,7 +87,7 @@ export class Handle
         world.afterEvents.playerPlaceBlock.subscribe(event =>
         {
             const eventObject: BlockPlaceEvent = new BlockPlaceEvent(
-                event.player,
+                new PPlayer(event.player),
                 event.block,
                 event.dimension
             );
@@ -119,7 +118,7 @@ export class Handle
             if (deadEntity instanceof Player)
             {
                 const eventObjectPlayer: PlayerDeathEvent = new PlayerDeathEvent(
-                    deadEntity,
+                    new PPlayer(deadEntity),
                     event.damageSource
                 );
                 eventObjectPlayer.call();
@@ -129,7 +128,7 @@ export class Handle
         world.afterEvents.playerDimensionChange.subscribe(event =>
         {
             const eventObject: PlayerChangeWorldEvent = new PlayerChangeWorldEvent(
-                event.player,
+                new PPlayer(event.player),
                 event.fromDimension,
                 event.toDimension,
                 event.fromLocation,
@@ -151,7 +150,7 @@ export class Handle
             if (entity instanceof Player)
             {
                 const eventObjectPlayer: PlayerDamageEvent = new PlayerDamageEvent(
-                    entity,
+                    new PPlayer(entity),
                     event.damageSource,
                     event.damage,
                 );
@@ -203,13 +202,13 @@ export class Handle
                 if (event.entity instanceof Player)
                 {
                     const eventObjectPlayer: PlayerAddEffectEvent = new PlayerAddEffectEvent(
-                        event.entity,
+                        new PPlayer(event.entity),
                         event.effect
                     );
                     eventObjectPlayer.call();
                     if (eventObjectPlayer.isCancel)
                     {
-                        eventObjectPlayer.getPlayer().removeEffect(
+                        eventObjectPlayer.getPlayer().getRealPlayer().removeEffect(
                             eventObjectPlayer.getEffect().displayName.toLowerCase()
                         );
                     }

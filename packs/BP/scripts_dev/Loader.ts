@@ -8,6 +8,7 @@ export default class Loader extends Init
     public onStart(): void
     {
         // function to register events and cmd
-        this.registerEvent(EVENTS.entityExplodeEvent, new onExplode());
+        this.registerEvent(EVENTS.blockBreakEvent, new onBreak());
     }
+
 }
