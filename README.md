@@ -20,3 +20,35 @@ https://github.com/Bedrock-OSS/regolith/releases/tag/1.2.0
 npm run build
 ````
 This command will **automatically** compile the add-on by transpiling **TypeScript** scripting into **JavaScript**, and it will also place your add-on in the ``com.mojang/`` folder of your game.
+
+---
+
+### features
+#### Player :
+``PlayerInventory ✅``<br>
+``PlayerArmorInventory ✅``<br>
+``PlayerAddEffectEvent ✅``<br>
+``PlayerChangeWorldEvent ✅``<br>
+``PlayerDamageEvent ✅``<br>
+``PlayerDeathEvent ✅``<br>
+``PlayerInteractEvent ✅``<br>
+``PlayerJoinEvent ✅``<br>
+``PlayerQuitEvent ✅``<br>
+``PlayerChangeArmorEvent 🟥``<br>
+``PlayerJumpEvent 🟥``<br>
+``playerMoveEvent 🟥``<br>
+#### Entity :
+``EntityAddEffectEvent ✅``<br>
+``EntityDamageEvent ✅``<br>
+``EntityDeathEvent ✅``<br>
+``EntityExplodeEvent ✅``<br>
+``EntitySpawnEvent ✅``<br>
+``EntityLoadEvent 🟥``<br>
+``EntityPlaySoundEvent 🟥``<br>
+``EntityAttackEvent 🟥``<br>
+#### Blocks :
+``BlockBreakEvent ✅``<br>
+``BlockPlaceEvent ✅``<br>
+``ButtonPushEvent ✅``<br>
+#### Projectiles :
+``ProjectileHitEntityEvent ✅``<br>
