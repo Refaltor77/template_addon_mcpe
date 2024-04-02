@@ -17,7 +17,7 @@
  *
  */
 
-import {CommandResult, Dimension, Player, Vector3} from "@minecraft/server";
+import {Block, CommandResult, Dimension, Player, Vector3} from "@minecraft/server";
 import {COMMANDS} from "../commands/CommandList";
 
 export class World
@@ -56,5 +56,21 @@ export class World
     public setBlock(blockName: string, position: Vector3): Promise<CommandResult>
     {
         return this.getDimension().runCommandAsync(COMMANDS.setblock + `${position.x} ${position.y} ${position.z} ${blockName}`);
+    }
+
+    // if null, chunk is not load
+    public getBlock(pos: Vector3): Block|null
+    {
+        const dimension = this.getDimension();
+        const block = dimension.getBlock(pos);
+        if (block === undefined)
+            return null;
+        return block;
+    }
+
+    public chunkIsLoadAtPos(pos: Vector3): boolean
+    {
+        const block = this.getBlock(pos);
+        return block !== null;
     }
 }
