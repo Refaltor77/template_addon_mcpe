@@ -20,7 +20,7 @@
 import {Block, CommandResult, Dimension, Player, Vector3} from "@minecraft/server";
 import {COMMANDS} from "../commands/CommandList";
 
-export class World
+export class WorldAddon
 {
     private readonly world: Dimension;
 

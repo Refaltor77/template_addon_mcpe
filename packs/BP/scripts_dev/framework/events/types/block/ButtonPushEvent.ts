@@ -23,14 +23,15 @@ import {
 } from "@minecraft/server";
 import {Event} from "../../Event";
 import {EVENTS} from "../../EventList";
+import {WorldAddon} from "../../../world/WorldAddon";
 
 export default class ButtonPushEvent extends Event
 {
     private readonly source: Entity;
     private readonly block: Block;
-    private readonly world: Dimension;
+    private readonly world: WorldAddon;
 
-    constructor(source: Entity, block: Block, world: Dimension)
+    constructor(source: Entity, block: Block, world: WorldAddon)
     {
         super();
         this.source = source;
@@ -39,7 +40,7 @@ export default class ButtonPushEvent extends Event
 
     public getEntity(): Entity {return this.source;}
     public getBlock(): Block {return this.block;}
-    public getWorld(): Dimension {return this.world;}
+    public getWorld(): WorldAddon {return this.world;}
 
     getEventName(): string {
         return EVENTS.buttonPushEvent;

@@ -18,7 +18,7 @@
  */
 
 import {Dimension, Entity, Player, Vector3} from "@minecraft/server";
-import {World} from "../../../world/World";
+import {WorldAddon} from "../../../world/WorldAddon";
 import {Event} from "../../Event";
 import {EVENTS} from "../../EventList";
 import {PPlayer} from "../../../player/PPlayer";
@@ -26,12 +26,12 @@ import {PPlayer} from "../../../player/PPlayer";
 export class PlayerChangeWorldEvent extends Event
 {
     private readonly player: PPlayer;
-    private readonly fromWorld: Dimension;
-    private readonly toWorld: Dimension;
+    private readonly fromWorld: WorldAddon;
+    private readonly toWorld: WorldAddon;
     private readonly fromPosition: Vector3;
     private readonly toPosition: Vector3;
 
-    constructor(player: PPlayer, fromWorld: Dimension, toWorld: Dimension, fromPos: Vector3, toPos: Vector3)
+    constructor(player: PPlayer, fromWorld: WorldAddon, toWorld: WorldAddon, fromPos: Vector3, toPos: Vector3)
     {
         super();
         this.player = player;
@@ -42,8 +42,8 @@ export class PlayerChangeWorldEvent extends Event
     }
 
     public getPlayer(): PPlayer {return this.player;}
-    public getBeforeWorld(): World {return new World(this.fromWorld);}
-    public getNewWorld(): World {return new World(this.toWorld);}
+    public getBeforeWorld(): WorldAddon {return this.fromWorld;}
+    public getNewWorld(): WorldAddon {return this.toWorld;}
     public getBeforePosition(): Vector3 {return this.fromPosition;}
     public getNewPosition(): Vector3 {return this.toPosition;}
 

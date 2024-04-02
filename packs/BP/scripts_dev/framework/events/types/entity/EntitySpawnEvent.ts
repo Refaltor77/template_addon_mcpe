@@ -24,7 +24,7 @@ import {
 } from "@minecraft/server";
 import {Event} from "../../Event";
 import {EVENTS} from "../../EventList";
-import {World} from "../../../world/World";
+import {WorldAddon} from "../../../world/WorldAddon";
 
 export default class EntitySpawnEvent extends Event
 {

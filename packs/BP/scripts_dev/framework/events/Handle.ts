@@ -37,6 +37,7 @@ import EntityExplodeEvent from "./types/entity/EntityExplodeEvent";
 import EntitySpawnEvent from "./types/entity/EntitySpawnEvent";
 import {PPlayer} from "../player/PPlayer";
 import EntityHealthChangeEvent from "./types/entity/EntityHealthChangeEvent";
+import {WorldAddon} from "../world/WorldAddon";
 
 export class Handle
 {
@@ -47,7 +48,7 @@ export class Handle
             const eventObject: BlockBreakEvent = new BlockBreakEvent(
                 new PPlayer(event.player),
                 event.block,
-                event.dimension,
+                new WorldAddon(event.dimension),
                 event.itemStack,
                 event
             );
@@ -90,7 +91,7 @@ export class Handle
             const eventObject: BlockPlaceEvent = new BlockPlaceEvent(
                 new PPlayer(event.player),
                 event.block,
-                event.dimension
+                new WorldAddon(event.dimension)
             );
             eventObject.call();
 
@@ -130,8 +131,8 @@ export class Handle
         {
             const eventObject: PlayerChangeWorldEvent = new PlayerChangeWorldEvent(
                 new PPlayer(event.player),
-                event.fromDimension,
-                event.toDimension,
+                new WorldAddon(event.fromDimension),
+                new WorldAddon(event.toDimension),
                 event.fromLocation,
                 event.toLocation
             );
@@ -162,7 +163,7 @@ export class Handle
         world.afterEvents.projectileHitEntity.subscribe(event =>
         {
             const eventObject: ProjectileHitEntityEvent = new ProjectileHitEntityEvent(
-                event.dimension,
+                new WorldAddon(event.dimension),
                 event.projectile,
                 event.hitVector,
                 event.getEntityHit(),
@@ -179,7 +180,7 @@ export class Handle
             const eventObject: ButtonPushEvent = new ButtonPushEvent(
                 event.source,
                 event.block,
-                event.dimension
+                new WorldAddon(event.dimension)
             );
             eventObject.call();
         });

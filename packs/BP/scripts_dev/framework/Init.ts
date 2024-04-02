@@ -18,24 +18,24 @@
  */
 
 import {HandlerListManager} from "./events/HandlerListManager";
-import {World} from "./world/World";
+import {WorldAddon} from "./world/WorldAddon";
 import {Dimension} from "@minecraft/server";
 import Listener from "./events/Listener";
 
 export default class Init
 {
     private readonly eventManager: HandlerListManager;
-    private readonly world: World;
+    private readonly world: WorldAddon;
     private static instance: Init;
 
     constructor(world: Dimension)
     {
         this.eventManager = new HandlerListManager();
-        this.world = new World(world);
+        this.world = new WorldAddon(world);
         Init.instance = this;
     }
 
-    public getWorld(): World {return this.world;}
+    public getWorld(): WorldAddon {return this.world;}
 
     public registerEvent(name: string, event: Listener)
     {

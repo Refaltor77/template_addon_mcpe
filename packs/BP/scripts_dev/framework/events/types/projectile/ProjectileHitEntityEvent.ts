@@ -26,13 +26,13 @@ import {
     Player,
     Vector3
 } from "@minecraft/server";
-import {World} from "../../../world/World";
+import {WorldAddon} from "../../../world/WorldAddon";
 import {Event} from "../../Event";
 import {EVENTS} from "../../EventList";
 
 export class ProjectileHitEntityEvent extends Event
 {
-    private readonly world: Dimension;
+    private readonly world: WorldAddon;
     private readonly projectile: Entity;
     private readonly entityHitPos: Vector3;
     private readonly entityHitInformation: EntityHitInformation;
@@ -40,7 +40,7 @@ export class ProjectileHitEntityEvent extends Event
     private readonly source: Entity|undefined;
 
     constructor(
-        world: Dimension,
+        world: WorldAddon,
         projectile: Entity,
         entityHitPos: Vector3,
         entityHitInformation: EntityHitInformation,
@@ -57,7 +57,7 @@ export class ProjectileHitEntityEvent extends Event
         this.source = launcher;
     }
 
-    public getWorld(): World {return new World(this.world);}
+    public getWorld(): WorldAddon {return this.world;}
     public getProjectile(): Entity {return this.projectile;}
     public getDirectionVector(): Vector3 {return this.entityHitPos;}
     public getHitPosition(): Vector3 {return this.posHit;}

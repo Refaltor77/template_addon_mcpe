@@ -28,15 +28,16 @@ import {
 import {Event} from "../../Event";
 import {EVENTS} from "../../EventList";
 import {PPlayer} from "../../../player/PPlayer";
+import {WorldAddon} from "../../../world/WorldAddon";
 
 export default class BlockPlaceEvent extends Event
 {
     private readonly player: PPlayer;
     private readonly block: Block;
-    private readonly world: Dimension;
+    private readonly world: WorldAddon;
     public isCancel: boolean = false;
 
-    constructor(player: PPlayer, block: Block, world: Dimension)
+    constructor(player: PPlayer, block: Block, world: WorldAddon)
     {
         super();
         this.player = player;
@@ -45,7 +46,7 @@ export default class BlockPlaceEvent extends Event
 
     public getPlayer(): PPlayer {return this.player;}
     public getBlock(): Block {return this.block;}
-    public getWorld(): Dimension {return this.world;}
+    public getWorld(): WorldAddon {return this.world;}
 
     // for cancel event
     public cancel(value: boolean): void {

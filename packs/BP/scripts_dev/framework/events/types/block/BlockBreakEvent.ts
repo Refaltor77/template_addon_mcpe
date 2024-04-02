@@ -21,16 +21,17 @@ import {Block, Dimension, ItemStack, Player, PlayerBreakBlockBeforeEvent} from "
 import {Event} from "../../Event";
 import {EVENTS} from "../../EventList";
 import {PPlayer} from "../../../player/PPlayer";
+import {WorldAddon} from "../../../world/WorldAddon";
 
 export default class BlockBreakEvent extends Event
 {
     private readonly player: PPlayer;
     private readonly block: Block;
-    private readonly world: Dimension;
+    private readonly world: WorldAddon;
     private readonly item: ItemStack;
     private readonly event: PlayerBreakBlockBeforeEvent;
 
-    constructor(player: PPlayer, block: Block, world: Dimension, itemStack: ItemStack, event: PlayerBreakBlockBeforeEvent)
+    constructor(player: PPlayer, block: Block, world: WorldAddon, itemStack: ItemStack, event: PlayerBreakBlockBeforeEvent)
     {
         super();
         this.player = player;
@@ -42,7 +43,7 @@ export default class BlockBreakEvent extends Event
 
     public getPlayer(): PPlayer {return this.player;}
     public getBlock(): Block {return this.block;}
-    public getWorld(): Dimension {return this.world;}
+    public getWorld(): WorldAddon {return this.world;}
     public getItem(): ItemStack {return this.item};
 
     // for cancel event
