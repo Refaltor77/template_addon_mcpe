@@ -1,26 +1,24 @@
 import Listener from "../framework/events/Listener";
-import PlayerJoinEvent from "../framework/events/types/player/PlayerJoinEvent";
 import Loader from "../Loader";
-import {Database} from "../framework/database/Database";
+import PlayerJoinEvent from "../framework/events/types/player/PlayerJoinEvent";
+import {ItemStack} from "@minecraft/server";
 
 export class onJoin extends Listener
 {
-    onEvent(event: PlayerJoinEvent, loader: Loader): void
+    public onEvent(event: PlayerJoinEvent, loader: Loader)
     {
-        const database = new Database("test", true);
         const player = event.getPlayer();
+        const armorInventory = player.getArmorInventory();
 
-        let join: number = 0;
-        if (database.has(player.id + ":join")) join = <number>database.get(player.id + ":join");
-        join++;
-        database.set(player.id + ":join", join);
-        if (event.hasPlayedBefore())
+        // set a kit if player has never played
+        if (!event.hasPlayedBefore())
         {
-            player.sendMessage("You have played before ! Join : " + join);
-        }
-        else
-        {
-            player.sendMessage("Welcome new player !");
+            armorInventory.setHelmet(new ItemStack("minecraft:iron_helmet", 1));
+            armorInventory.setChestplate(new ItemStack("minecraft:iron_chestplate", 1));
+            armorInventory.setLeggings(new ItemStack("minecraft:iron_leggings", 1));
+            armorInventory.setBoots(new ItemStack("minecraft:iron_boots", 1));
+
+            player.sendMessage("OH ! a good kit in your inventory my friend !");
         }
     }
 }
