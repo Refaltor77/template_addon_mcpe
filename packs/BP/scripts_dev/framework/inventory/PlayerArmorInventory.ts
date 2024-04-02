@@ -18,7 +18,7 @@
  */
 
 import {PPlayer} from "../player/PPlayer";
-import {EntityComponent, EntityEquippableComponent, EquipmentSlot, ItemStack} from "@minecraft/server";
+import {EntityComponent, EntityEquippableComponent, EquipmentSlot, ItemStack, system} from "@minecraft/server";
 
 export class PlayerArmorInventory
 {
@@ -92,7 +92,10 @@ export class PlayerArmorInventory
         const equippable = this.getEquippable();
         if (equippable instanceof EntityEquippableComponent)
         {
-            equippable.setEquipment(EquipmentSlot.Head, item);
+            system.run(() =>
+            {
+                equippable.setEquipment(EquipmentSlot.Head, item);
+            });
             return true;
         }
         return false;
@@ -103,7 +106,10 @@ export class PlayerArmorInventory
         const equippable = this.getEquippable();
         if (equippable instanceof EntityEquippableComponent)
         {
-            equippable.setEquipment(EquipmentSlot.Chest, item);
+            system.run(() =>
+            {
+                equippable.setEquipment(EquipmentSlot.Chest, item);
+            });
             return true;
         }
         return false;
@@ -114,7 +120,10 @@ export class PlayerArmorInventory
         const equippable = this.getEquippable();
         if (equippable instanceof EntityEquippableComponent)
         {
-            equippable.setEquipment(EquipmentSlot.Legs, item);
+           system.run(() =>
+           {
+               equippable.setEquipment(EquipmentSlot.Legs, item);
+           });
             return true;
         }
         return false;
@@ -125,7 +134,10 @@ export class PlayerArmorInventory
         const equippable = this.getEquippable();
         if (equippable instanceof EntityEquippableComponent)
         {
-            equippable.setEquipment(EquipmentSlot.Feet, item);
+            system.run(() =>
+            {
+                equippable.setEquipment(EquipmentSlot.Feet, item);
+            });
             return true;
         }
         return false;

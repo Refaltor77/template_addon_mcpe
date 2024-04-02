@@ -89,6 +89,30 @@ export class PPlayer
         return this.inventory;
     }
 
+    public sendTitle(
+        title: string,
+        subtitle: string|null = null,
+        fadeInDuration: number = 20,
+        fadeOutDuration: number = 20,
+        stayDuration: number = 20
+    ): void
+    {
+        const player = this.getRealPlayer();
+
+        system.run(() =>
+        {
+            if (player.onScreenDisplay.isValid())
+            {
+                player.onScreenDisplay.setTitle(title, {
+                    fadeInDuration: fadeInDuration,
+                    fadeOutDuration: fadeOutDuration,
+                    subtitle: subtitle,
+                    stayDuration: stayDuration
+                });
+            }
+        });
+    }
+
     public getArmorInventory(): PlayerArmorInventory
     {
         return this.armorInventory;

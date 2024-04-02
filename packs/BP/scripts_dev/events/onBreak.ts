@@ -8,6 +8,6 @@ export class onBreak extends Listener
     onEvent(event: BlockBreakEvent, loader: Loader)
     {
         const player = event.getPlayer();
-        player.setGameMode(Creative.get());
+        player.sendTitle("salut", "prout")
     }
 }
